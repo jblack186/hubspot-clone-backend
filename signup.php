@@ -53,8 +53,7 @@ if (
 
     $sql=mysqli_query($conn,"SELECT * FROM users where googleid='$usergoogleid'");
 
-    if(mysqli_num_rows($sql)>0)
-{
+    if(mysqli_num_rows($sql)>0) {
     echo "Email Id Already Exists"; 
     http_response_code(203);
 	exit;

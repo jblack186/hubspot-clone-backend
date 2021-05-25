@@ -33,11 +33,21 @@ if (
     $usercompanyname = mysqli_real_escape_string($db_conn, trim($data->companyname));
     
     $conn=mysqli_connect("localhost","root","root","HBSCdb");
+    
+    $find_id ="SELECT * FROM users WHERE googleid='$usergoogleid'";
+    $sql = mysqli_query($conn,"SELECT * FROM users where googleid=$usergoogleid");
+    
+    $resArray = array("id"=>$usergoogleid, "name"=>$userfirstname);
 
-    $sql=mysqli_query($conn,"SELECT * FROM users where googleid='$usergoogleid'");
+    $result = mysqli_query($conn, $find_id);
 
     if(mysqli_num_rows($sql)>0) {
-      echo http_build_query($data);
+       
+       while($row = mysqli_fetch_assoc($result)) {
+           echo $row['id'];
+       }
+  
+    // echo mysqli_num_rows($find_id);
       http_response_code(200);
       exit;
 }
