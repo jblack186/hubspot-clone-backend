@@ -7,7 +7,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 require 'db_connection.php';
 
-// $sql = "CREATE TABLE users(
+// $sql = "CREATE TABLE Users(
 //   id INT(2) PRIMARY KEY NOT NULL AUTO_INCREMENT, 
 //   googleid VARCHAR(255) NOT NULL, 
 //   firstname VARCHAR(30) NOT NULL,
@@ -16,15 +16,38 @@ require 'db_connection.php';
 //   phonenumber VARCHAR(30) NULL,
 //   companyname VARCHAR(30) NULL
 //   )";
+  
+
 
 // if ($db_conn->query($sql) === TRUE) {
-// echo "Table employees created successfully";
+  
+//     $sql_contact = "CREATE TABLE Contact(
+//         id INT(2) PRIMARY KEY NOT NULL AUTO_INCREMENT, 
+//         contactid int,
+//         FOREIGN KEY (contactid) REFERENCES Users(id),
+//         firstname VARCHAR(30) NOT NULL,
+//         lastname VARCHAR(30) NOT NULL,
+//         email VARCHAR(50) NOT NULL,
+//         phonenumber VARCHAR(30) NULL,
+//         companyname VARCHAR(30) NULL
+//         )";
+//         if ($db_conn->query($sql_contact) === TRUE) {
+
+//           echo "Users and contact table created successfully";
+
+//         }
 // } else {
 // echo "Error creating table: " . $db_conn->error;
 // }
 
+
+
 // $db_conn->close();
 // POST DATA
+
+
+
+
 $data = json_decode(file_get_contents("php://input"));
 
 if (
@@ -65,6 +88,27 @@ if (
             $last_id = mysqli_insert_id($db_conn);
             echo json_encode(["success" => 1, "msg" => "User Inserted.", "id" => $last_id]);
             http_response_code(201);
+
+
+
+            
+              
+           
+              echo "Table Users with Contacts are both created successfully";
+              $sampleone = mysqli_query($db_conn, "INSERT INTO Contact (contactid, firstname, lastname, email, phonenumber, companyname) VALUES ($last_id,'Mark', 'Demolowski (Sample)', 'dmark@gmail.com', '(203)-424-2456', 'Stratford Board of Education')");
+              if ($db_conn->query($sampleone) === TRUE) {
+                echo "New sample data created successfully";
+              } else {
+                echo "Error: " . $sampleone . "<br>" . $conn->error;
+              }
+
+              $sampletwo = mysqli_query($db_conn, "INSERT INTO Contact (contactid, firstname, lastname, email, phonenumber, companyname) VALUES ($last_id,'Martin', 'Muniz (Sample)', 'mmartin@gmail.com', '(203)-746-8645', 'General Electric')");
+              if ($db_conn->query($sampleone) === TRUE) {
+                echo "New sample data created successfully";
+              } else {
+                echo "Error: " . $sampleone . "<br>" . $conn->error;
+              }
+              
 
         } else {
             echo json_encode(["success" => 0, "msg" => "User Not Inserted!"]);
