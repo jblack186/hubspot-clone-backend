@@ -31,8 +31,24 @@ require 'db_connection.php';
 //         phonenumber VARCHAR(30) NULL,
 //         companyname VARCHAR(30) NULL
 //         )";
+
+
 //         if ($db_conn->query($sql_contact) === TRUE) {
 
+//               $sql_tickets = "CREATE TABLE Tickets(
+//       id INT(2) PRIMARY KEY NOT NULL AUTO_INCREMENT, 
+//       userid int,
+//       FOREIGN KEY (userid) REFERENCES Users(id),
+//       fullname VARCHAR(50) NOT NULL,
+//       ticketdescription VARCHAR(255) NOT NULL,
+//       phonenumber VARCHAR(50) NULL,
+//       companyname VARCHAR(50) NULL
+//       )";
+
+// if ($db_conn->query($sql_tickets) === TRUE) {
+//   echo "ticket table created successfully";
+
+// }
 //           echo "Users and contact table created successfully";
 
 //         }
