@@ -14,11 +14,28 @@ $get_tickets = "SELECT * FROM tickets WHERE userid='$grab'";
 $conn=mysqli_connect("localhost","root","root","HBSCdb");
 
 
-$result = mysqli_query($db_conn, $get_tickets);
+$result = mysqli_query($conn, $get_tickets);
+
+$numrows = mysqli_num_rows($result);
 
 
+if($numrows > 0) {
 while($row = mysqli_fetch_assoc($result)) {
-  echo json_encode(["contact" => $row['fullname'], "description" => $row['ticketdescription'], "company" => $row['companyname']]);
+  $name=$row['fullname'];
+  $companyname=$row['companyname'];
+  $description=$row['ticketdescription'];
+
+  $sendResult['userTickets'][] =  $tickets = array("contact" => $name, "description" => $description, "company" => $companyname);
+
+
 }
+}
+
+else
+{
+    $sendResult[] = 'No Patients yet';
+}
+
+echo json_encode($sendResult);
 
 
