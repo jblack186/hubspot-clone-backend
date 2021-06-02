@@ -26,13 +26,12 @@ if (
     $userphonenumber = mysqli_real_escape_string($db_conn, trim($data->phonenumber));
     $usercompanyname = mysqli_real_escape_string($db_conn, trim($data->companyname));
     
-
     // $sql=mysqli_query($conn,"SELECT * FROM users where id='$userID'");
 
     $insertTicket = mysqli_query($db_conn, "INSERT INTO `Tickets`(`userid`,`fullname`,`ticketdescription`, `phonenumber`, `companyname`) VALUES('$userID','$userfullname', '$userticketdescription','$userphonenumber', '$usercompanyname')");
     if ($insertTicket) {
-      
-      echo json_encode(["success" => 1, "msg" => "Tikcet Inserted."]);
+      $last_entry = mysqli_insert_id($db_conn);
+      echo json_encode(["id" => $last_entry, "name" => $userfullname, "desc" => $userticketdescription]);
       http_response_code(201);
 } else {
   echo $db_conn->error;;
