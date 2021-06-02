@@ -21,11 +21,12 @@ $numrows = mysqli_num_rows($result);
 
 if($numrows > 0) {
 while($row = mysqli_fetch_assoc($result)) {
+  $id=$row['id'];
   $name=$row['fullname'];
   $companyname=$row['companyname'];
   $description=$row['ticketdescription'];
 
-  $sendResult['userTickets'][] =  $tickets = array("contact" => $name, "description" => $description, "company" => $companyname);
+  $sendResult['userTickets'][] =  $tickets = array("id" => $id, "contact" => $name, "description" => $description, "company" => $companyname);
 
 
 }
