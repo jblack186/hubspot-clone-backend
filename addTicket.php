@@ -16,6 +16,7 @@ if (
     isset($data->userid)
     && isset($data->fullname)
     && isset($data->ticketdescription)
+    && isset($data->ticketStatus)
     || !empty(trim($data->phonenumber))
     || !empty(trim($data->companyname))
 
@@ -25,16 +26,16 @@ if (
     $userticketdescription = mysqli_real_escape_string($db_conn, trim($data->ticketdescription));
     $userphonenumber = mysqli_real_escape_string($db_conn, trim($data->phonenumber));
     $usercompanyname = mysqli_real_escape_string($db_conn, trim($data->companyname));
-    
+    $ticketStatus = mysqli_real_escape_string($db_conn, trim($data->ticketStatus));
     // $sql=mysqli_query($conn,"SELECT * FROM users where id='$userID'");
 
-    $insertTicket = mysqli_query($db_conn, "INSERT INTO `Tickets`(`userid`,`fullname`,`ticketdescription`, `phonenumber`, `companyname`) VALUES('$userID','$userfullname', '$userticketdescription','$userphonenumber', '$usercompanyname')");
+    $insertTicket = mysqli_query($db_conn, "INSERT INTO `Tickets`(`userid`,`fullname`,`ticketdescription`, `phonenumber`, `companyname`, `ticketStatus`) VALUES('$userID','$userfullname', '$userticketdescription','$userphonenumber', '$usercompanyname', '$ticketStatus')");
     if ($insertTicket) {
       $last_entry = mysqli_insert_id($db_conn);
-      echo json_encode(["id" => $last_entry, "name" => $userfullname, "desc" => $userticketdescription]);
+      echo json_encode(["id" => $last_entry, "name" => $userfullname, "desc" => $userticketdescription, 'ticketStatus' => $ticketStatus]);
       http_response_code(201);
 } else {
-  echo $db_conn->error;;
+  echo $db_conn->error;
 }
 
 }

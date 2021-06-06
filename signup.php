@@ -42,7 +42,8 @@ require 'db_connection.php';
 //       fullname VARCHAR(50) NOT NULL,
 //       ticketdescription VARCHAR(255) NOT NULL,
 //       phonenumber VARCHAR(50) NULL,
-//       companyname VARCHAR(50) NULL
+//       companyname VARCHAR(50) NULL,
+//       ticketStatus VARCHAR(255) NOT NULL
 //       )";
 
 // if ($db_conn->query($sql_tickets) === TRUE) {
