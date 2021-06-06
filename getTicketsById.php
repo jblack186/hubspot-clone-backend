@@ -25,8 +25,10 @@ while($row = mysqli_fetch_assoc($result)) {
   $name=$row['fullname'];
   $companyname=$row['companyname'];
   $description=$row['ticketdescription'];
+  $ticketstatus=$row['ticketStatus'];
 
-  $sendResult['userTickets'][] =  $tickets = array("id" => $id, "contact" => $name, "description" => $description, "company" => $companyname);
+
+  $sendResult['userTickets'][] =  $tickets = array("id" => $id, "contact" => $name, "description" => $description, "company" => $companyname, "ticketStatus" => $ticketstatus);
 
 
 }
