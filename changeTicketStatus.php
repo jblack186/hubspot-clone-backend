@@ -14,18 +14,17 @@ $conn=mysqli_connect("localhost","root","root","HBSCdb");
 
 if (
     isset($data->id)
-    && isset($data->columnName)
+    && isset($data->status)
+
 ) {
     $id = mysqli_real_escape_string($db_conn, ($data->id));
-    $columName = mysqli_real_escape_string($db_conn, trim($data->columnName));
-    $ticketStatus = mysqli_real_escape_string($db_conn, trim($data->ticketStatus));
+    $status = mysqli_real_escape_string($db_conn, trim($data->status));
 
 
-    $changeTicket = mysqli_query($db_conn, "UPDATE Tickets SET $columName=ticketStatus WHERE id=$id");
+    $changeTicket = mysqli_query($db_conn, "UPDATE `Tickets` SET `ticketStatus` = '$status' WHERE (`id` = '$id')");
     if ($changeTicket) {
-      $last_entry = mysqli_insert_id($db_conn);
-      echo json_encode(["id" => $last_entry, "name" => $userfullname, "desc" => $userticketdescription, 'ticketStatus' => $ticketStatus]);
-      http_response_code(201);
+      echo json_encode(["success" => $changeTicket]);
+      http_response_code(202);
 } else {
   echo $db_conn->error;
 }
